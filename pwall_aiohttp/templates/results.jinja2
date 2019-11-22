@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang=en>
+  <head>
+      <!-- Results example page -->
+      <title>Example Shop</title>
+      <meta charset=utf-8>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+      <meta http-equiv=X-UA-Compatible content="IE=edge">
+      <meta name=viewport content="width=device-width,initial-scale=1">
+  </head>
+
+  <body>
+    <h1 class=text-center style="font-family:Roboto; font-size:5em"><a href=/>Example shop</a></h1><br/><hr/><br/>
+    <div class=container>
+      <div class=col-md-6>
+        <h3> Your order {{result["result"]["order"]}} has been placed </h3>
+        <p class=text>
+          Your order has been placed. Paid with card
+          {{result["result"]["payload"]["masked_card"]}} with result
+          {{result["result"]["description"]}}.
+        </p>
+        <h3 class="text text-center"><a href="/"> Go back </a></h3>
+      </div>
+    </div>
+  </body>
+</html>

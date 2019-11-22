@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "pwall_aiohttp"
+version = "0.1.0"
+description = "WAIAP Payment Wall AIOHTTP Example implementation. Use this a reference of a complete integration. "
+authors = ["David Francos Cuartero <davidfrancos@sipay.es>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+aiohttp = "^3.6"
+toml = "^0.10.0"
+semver = "^2.9"
+aiohttp_apiset = "^0.9.8"
+cleo = "^0.7.6"
+pygogo = "^0.12.0"
+aiozipkin = "^0.6.0"
+aiohttp_jinja2 = "^1.2"
+aiohttp_session = "^2.9"
+cryptography = "^2.8"
+
+[tool.poetry.dev-dependencies]
+aiohttp-devtools = "^0.13.1"
+auto-changelog = "^0.4.0"
+sphinx = "^2.2"
+bandit = "^1.6"
+pytest-pydocstyle = "^2.0"
+pytest-pycodestyle = "^2.0"
+hypothesis = "^4.44"
+aioresponses = "^0.6.1"
+pytest-asyncio = "^0.10.0"
+pytest-aiohttp = "^0.3.0"
+pytest-cov = "^2.8"
+
+[tool.poetry.scripts]
+pwall_aiohttp = "pwall_aiohttp:main"
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
+

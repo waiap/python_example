@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang=en>
+  <head>
+      <title>Example shop</title>
+      <meta charset=utf-8>
+      <!-- None of this is required for the payment wall. It's just here for the fake shop style. -->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+      <meta http-equiv=X-UA-Compatible content="IE=edge">
+      <meta name=viewport content="width=device-width,initial-scale=1">
+      <!-- End not-integration scripts. -->
+
+      <!-- Include Payment Wall scripts -->
+      <script src="{{environment_url}}pwall_sdk/pwall_sdk.bundle.js"></script>
+      <link href="{{environment_url}}pwall_app/css/app.css" rel=stylesheet>
+      <!-- End of Payment Wall scripts -->
+  </head>
+
+  <body>
+      <h1 class=text-center style="font-family:Roboto; font-size:5em"><a href=/>Example shop</a></h1><br/><hr/><br/>
+      <div class=container>
+          <div class=col-md-6>
+            <!-- Application container. An application container is required and will be passed as placeholder -->
+            <div id=app></div>
+          </div>
+        </div>
+      </div>
+      <!-- Include main Payment Wall script after you've loaded your application container -->
+      <script data-url="/actions/" data-backoffice=true data-placeholder="#app" src="{{environment_url}}pwall_app/js/app.js"></script>
+      <script>
+        document.dispatchEvent(new Event('payment_wall_load_app'))
+      </script>
+  </body>
+</html>
