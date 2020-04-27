@@ -18,29 +18,25 @@
 
   <body>
       <script>
-      document.addEventListener('payment_wall_load', function(){
-          document.getElementById('app').addEventListener("payment_wall_loaded", function(){
-            // These two events are not required. They will add
-            // test_header and test_data respectively to ALL requests done to
-            // the "actions" endpoint so you can pass data back to the backend part.
-            document.getElementById('app').dispatchEvent(new CustomEvent('payment_wall_set_extra_headers', {detail: {test_header: "data"}}));
-            document.getElementById('app').dispatchEvent(new CustomEvent('payment_wall_set_extra_data', {detail: {test_data: "data"}}));
-
-            document.getElementById('app').addEventListener(
-              'payment_wall_payment_ok',
-              function(ev) {
-                  // This is NOT required, it ilustrates how you can use ev.detail.payload
-                  // on a payment_ok result to show operation results
-                  document.getElementById('result').style.display = "block";
-                  document.getElementById('masked_card').innerHTML = ev.detail.payload.masked_card;
-
-
-                  // Usually, you would redirect to another page to show cart
-                  // status and other extra information
-                  window.location.href = "/results/";
-              });
-            });
-      });
+       var container = document.getElementById('app');
+       window.PaymentWall.listenTo(container, 'load', function(){
+         window.PaymentWall.listenTo(container, "loaded", function(){
+         // These two events are not required. They will add
+         // test_header and test_data respectively to ALL requests done to
+         // the "actions" endpoint so you can pass data back to the backend part.
+           window.PaymentWall.dispatch(container, 'set_extra_headers', {detail: {test_header: "data"}});
+           window.PaymentWall.dispatch(container, 'set_extra_data', {detail: {test_data: "data"}});
+           window.PaymentWall.listenTo('payment_ok', function(ev) {
+                 // This is NOT required, it ilustrates how you can use ev.detail.payload
+                 // on a payment_ok result to show operation results
+                 document.getElementById('result').style.display = "block";
+                 document.getElementById('masked_card').innerHTML = ev.detail.payload.masked_card;
+                 // Usually, you would redirect to another page to show cart
+                 // status and other extra information
+                 window.location.href = "/results/";
+             });
+           });
+       });
       </script>
       <h1 class=text-center style="font-family:Roboto; font-size:5em"><a href=/>Example shop</a></h1> <br/> <hr/> <br/>
       <div class=container>
@@ -65,19 +61,16 @@
       <script>
         // After you can be sure the placeholder is loaded in the DOM, launch
         // payment_wall_load_app event to load the application on document.
-        document.dispatchEvent(new Event('payment_wall_load_app'))
+        var container = document.getElementById('app');
+        window.PaymentWall.start()
 
         {% if result %}
           // THIS IS REQUIRED for all integrations.
           // This makes all redirect-based methods to finish its operation
-          document.getElementById('app').addEventListener(
-            'payment_wall_drawn',
-            function(ev) {
-              document.getElementById('app').dispatchEvent(
-                new CustomEvent('payment_wall_process_redirect', {detail: {{result|safe}}})
-              );
-            });
-          {%endif%}
+          window.PaymentWall.listenTo(container, 'drawn', function(ev) {
+              window.PaymentWall.dispatch('process_redirect', {detail: {{result|safe}}});
+          });
+        {%endif%}
       </script>
 
       <hr/><br/>
