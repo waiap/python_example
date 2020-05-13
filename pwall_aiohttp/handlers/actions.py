@@ -102,7 +102,10 @@ async def actions(request):
     # We have requested a sale action, and WAIAP servers have not returned a
     # redirect url. This is a final sale result.
     sale_ok = result['result'].get('code') == '0'
-    if action == 'pwall.sale' and not payload.get('url') and sale_ok:
+    is_not_dcc = payload.get('code') != "198"
+    is_redirect = payload.get('url')
+
+    if action == 'pwall.sale' and not is_redirect and is_not_dcc and sale_ok:
         session['last_response'] = result
         # In this case, a sale has been completed and payment is *confirmed*.
         request.app['logger'].info('sale_processed', extra=result)
